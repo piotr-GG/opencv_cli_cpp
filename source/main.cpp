@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <opencv2/opencv.hpp>
 #include "include/open_image.h"
+#include "include/process.h"
 
 using namespace cv;
 
@@ -16,21 +17,17 @@ int main(int argc, char **argv)
     //     std::cout << line << std::endl;
     //     line = get_line();
     // }
-
+    int return_value;
     for(std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
     {
         if(!line.empty())
         {
-            std::cout << "ECHO " << line << std::endl;
+            return_value = process(line);
+            if(!return_value){
+                return 0;
+            }
         }
     }
-
-    // for (std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
-    // {
-    //     if (!line.empty()){
-    //         std::cout << "ECHO " << line << std::endl;
-    //     }
-    // }
 
     /*
     if(argc != 2){

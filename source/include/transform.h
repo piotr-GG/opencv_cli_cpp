@@ -1,8 +1,16 @@
 #include <opencv2/opencv.hpp>
 
+enum class Transformation{
+    Dilater,
+    Eroder,
+    Smoother,
+    Thresholder,
+};
+
 class Transform {
     public:
-        virtual void process_image() = 0;
+        static Transform *make_transformation(Transformation choice);
+        virtual void process_image(std::vector<std::string> args) = 0;
         void setImage(cv::Mat image) {
             this->image = image;
         }

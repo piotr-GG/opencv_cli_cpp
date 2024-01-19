@@ -6,7 +6,7 @@ class Transform {
         void setImage(cv::Mat image) {
             this->image = image;
         }
-
+        void invoke();
     protected:
         cv::Mat image;
         

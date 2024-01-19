@@ -1,5 +1,5 @@
-#include "include/transform.h"
+#include "include/dilater.h"
 
-class Dilater: Transform{
-
-};
+void Dilater::process_image(){
+    std::cout << "DILATER" << std::endl;
+}

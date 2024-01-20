@@ -2,6 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include "include/open_image.h"
 #include "include/process.h"
+#include "include/img_container.h"
 
 using namespace cv;
 
@@ -9,9 +10,17 @@ std::string get_line();
 
 int main(int argc, char **argv)
 {
-    String image_to_be_opened;
-
+    String image_path;
     int return_value;
+
+    if(argc == 2){
+        image_path = argv[1];
+        std::cout << "Image path: " << image_path << std::endl;
+    }
+
+    ImgContainer::load_image(image_path);
+    ImgContainer::show_image();
+
     for(std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
     {
         if(!line.empty())

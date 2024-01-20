@@ -3,16 +3,18 @@
 #include "include/dilater.h"
 #include "include/eroder.h"
 #include "include/smoother.h"
+#include "include/brightener.h"
 #include <unordered_map>
 
 std::unordered_map<std::string, Transformation> enum_map = {
     {"DILATER", Transformation::Dilater},
     {"ERODER", Transformation::Eroder},
     {"SMOOTHER", Transformation::Smoother},
-    {"THRESHOLDER", Transformation::Thresholder}
+    {"THRESHOLDER", Transformation::Thresholder},
+    {"BRIGHTENER", Transformation::Brightener},
 };
 
-Transform *Transform::make_transformation(Transformation choice){
+Transform* Transform::make_transformation(Transformation choice){
     if(choice == Transformation::Thresholder){
         return new Thresholder();
     } else if (choice == Transformation::Dilater){
@@ -21,7 +23,9 @@ Transform *Transform::make_transformation(Transformation choice){
         return new Smoother();
     } else if (choice == Transformation::Eroder){
         return new Eroder();
-    } 
+    } else if (choice == Transformation::Brightener){
+        return new Brightener();
+    }
     return NULL;
 }
 

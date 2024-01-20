@@ -6,6 +6,7 @@ enum class Transformation{
     Eroder,
     Smoother,
     Thresholder,
+    Brightener,
     Wrong_choice
 };
 

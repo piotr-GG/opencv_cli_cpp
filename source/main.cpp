@@ -19,8 +19,6 @@ int main(int argc, char **argv)
     }
 
     ImgContainer::load_image(image_path);
-    ImgContainer::show_image();
-
     for(std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
     {
         if(!line.empty())
@@ -32,11 +30,6 @@ int main(int argc, char **argv)
         }
     }
 
-
-    /*
-    open_image(image_to_be_opened);
-    waitKey(0);
-    */
     return 0;
 }
 

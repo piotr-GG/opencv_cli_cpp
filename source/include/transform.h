@@ -7,6 +7,7 @@ enum class Transformation{
     Smoother,
     Thresholder,
     Brightener,
+    ShowImg,
     Wrong_choice
 };
 
@@ -16,6 +17,7 @@ class Transform {
     public:
         static Transform *make_transformation(Transformation choice);
         virtual void process_image(std::vector<std::string> args) = 0;
+        virtual void process_args(std::vector<std::string> args) = 0;
         void setImage(cv::Mat image) {
             this->image = image;
         }

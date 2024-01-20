@@ -9,11 +9,8 @@ void ImgContainer::load_image(cv::String name){
 
     if (!image.data)
     {
-        std::cout << "No image data!" << std::endl;
         return;
-    }   else {
-        std::cout << "Opening the image!" << std::endl;
-    }
+    } 
     ImgContainer::set_image(image);
 }
 void  ImgContainer::set_image(cv::Mat image){

@@ -4,6 +4,7 @@
 #include "include/eroder.h"
 #include "include/smoother.h"
 #include "include/brightener.h"
+#include "include/show_img.h"
 #include <unordered_map>
 
 std::unordered_map<std::string, Transformation> enum_map = {
@@ -12,6 +13,7 @@ std::unordered_map<std::string, Transformation> enum_map = {
     {"SMOOTHER", Transformation::Smoother},
     {"THRESHOLDER", Transformation::Thresholder},
     {"BRIGHTENER", Transformation::Brightener},
+    {"SHOW", Transformation::ShowImg}
 };
 
 Transform* Transform::make_transformation(Transformation choice){
@@ -25,6 +27,8 @@ Transform* Transform::make_transformation(Transformation choice){
         return new Eroder();
     } else if (choice == Transformation::Brightener){
         return new Brightener();
+    } else if (choice == Transformation::ShowImg){
+        return new ShowImg();
     }
     return NULL;
 }

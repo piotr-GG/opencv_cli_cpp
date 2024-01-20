@@ -1,5 +1,7 @@
+#pragma once
 #include "transform.h"
 
-class Dilater: Transform{
-    void process_image();
+class Dilater: public Transform{
+    public:
+        void process_image(std::vector<std::string> args);
 };

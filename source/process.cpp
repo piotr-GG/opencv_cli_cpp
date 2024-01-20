@@ -3,14 +3,22 @@
 #include <vector>
 #include <cctype>
 #include "include/process.h"
+#include "include/transform.h"
 
 int process(std::string command_string){
     std::vector<std::string> parsed_cmd = split(command_string, " ");
     if (!parsed_cmd.empty()){
-        if(to_lower(parsed_cmd[0]) == "exit") return 0;
-    }
-    for(auto i: parsed_cmd){
-        std::cout << i << std::endl;
+        if(to_upper(parsed_cmd[0]) == "EXIT") return 0;
+        else{
+            Transformation parsed_enum = translate_string(to_upper(parsed_cmd[0]));
+            if(parsed_enum != Transformation::Wrong_choice){
+                Transform* action = Transform::make_transformation(parsed_enum);
+                action->process_image(parsed_cmd);
+            }
+            else {
+                std::cout << "THERE IS NO SUCH COMMAND!" << std::endl;
+            }
+        }
     }
     return 1;
 }
@@ -33,6 +41,13 @@ std::vector<std::string> split(std::string s, std::string delimiter){
 std::string to_lower(std::string input_string){
     for(int i=0; i < input_string.length(); i++){
         input_string[i] = tolower(input_string[i]);
+    }
+    return input_string;
+}
+
+std::string to_upper(std::string input_string){
+    for(int i=0; i < input_string.length(); i++){
+        input_string[i] = toupper(input_string[i]);
     }
     return input_string;
 }

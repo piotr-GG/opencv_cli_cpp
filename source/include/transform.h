@@ -1,3 +1,4 @@
+#pragma once
 #include <opencv2/opencv.hpp>
 
 enum class Transformation{
@@ -5,7 +6,10 @@ enum class Transformation{
     Eroder,
     Smoother,
     Thresholder,
+    Wrong_choice
 };
+
+Transformation translate_string(std::string input);
 
 class Transform {
     public:
@@ -19,3 +23,5 @@ class Transform {
         cv::Mat image;
         
 };
+
+

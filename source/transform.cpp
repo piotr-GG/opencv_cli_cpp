@@ -1,5 +1,8 @@
 #include "include/transform.h"
 #include "include/thresholder.h"
+#include "include/dilater.h"
+#include "include/eroder.h"
+#include "include/smoother.h"
 #include <unordered_map>
 
 std::unordered_map<std::string, Transformation> enum_map = {
@@ -13,21 +16,22 @@ Transform *Transform::make_transformation(Transformation choice){
     if(choice == Transformation::Thresholder){
         return new Thresholder();
     } else if (choice == Transformation::Dilater){
-
+        return new Dilater();
     } else if (choice == Transformation::Smoother){
-
+        return new Smoother();
     } else if (choice == Transformation::Eroder){
-
-    } else {
-        return NULL;
-    }
+        return new Eroder();
+    } 
+    return NULL;
 }
 
 Transformation translate_string(std::string input){
-
-    if(enum_map.find(input) != enum_map.end(){
-
-    } 
+    std::unordered_map<std::string, Transformation>::iterator it = enum_map.find(input);
+    if(it != enum_map.end()){
+        return it->second;
+    } else {
+        return Transformation::Wrong_choice;
+    }
 }
 
 

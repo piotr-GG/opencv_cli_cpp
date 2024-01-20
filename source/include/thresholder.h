@@ -1,4 +1,5 @@
-#include "include/transform.h"
+#pragma once
+#include "transform.h"
 
 class Thresholder: public Transform
 {

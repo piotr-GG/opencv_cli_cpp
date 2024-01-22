@@ -8,6 +8,7 @@ enum class Transformation{
     Thresholder,
     Brightener,
     ShowImg,
+    Reloader,
     Wrong_choice
 };
 

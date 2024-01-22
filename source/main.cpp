@@ -19,6 +19,8 @@ int main(int argc, char **argv)
     }
 
     ImgContainer::load_image(image_path);
+    ImgContainer::set_image_path(image_path);
+    
     for(std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
     {
         if(!line.empty())

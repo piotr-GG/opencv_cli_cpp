@@ -9,6 +9,7 @@ enum class Transformation{
     Brightener,
     ShowImg,
     Reloader,
+    Loader,
     Wrong_choice
 };
 

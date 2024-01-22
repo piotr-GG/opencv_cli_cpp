@@ -6,6 +6,7 @@
 #include "include/brightener.h"
 #include "include/show_img.h"
 #include "include/reloader.h"
+#include "include/loader.h"
 #include <unordered_map>
 
 std::unordered_map<std::string, Transformation> enum_map = {
@@ -16,6 +17,7 @@ std::unordered_map<std::string, Transformation> enum_map = {
     {"BRIGHTENER", Transformation::Brightener},
     {"SHOW", Transformation::ShowImg},
     {"RELOAD", Transformation::Reloader},
+    {"LOAD", Transformation::Loader},
 };
 
 Transform* Transform::make_transformation(Transformation choice){
@@ -33,6 +35,8 @@ Transform* Transform::make_transformation(Transformation choice){
         return new ShowImg();
     } else if (choice == Transformation::Reloader){
         return new Reloader();
+    } else if (choice == Transformation::Loader){
+        return new Loader();
     }
     return NULL;
 }

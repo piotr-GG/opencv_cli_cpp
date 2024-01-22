@@ -66,3 +66,9 @@ bool is_convertible_to_float(const std::string& s){
         return false;
     }
 }
+
+bool has_valid_extens(const std::string& file_name)
+{
+    std::string extens = file_name.substr(file_name.find(".")+1);
+    return (extens == "jpg" || extens == "png" || extens == "jpeg");
+}

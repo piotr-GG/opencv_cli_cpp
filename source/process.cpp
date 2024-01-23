@@ -72,3 +72,13 @@ bool has_valid_extens(const std::string& file_name)
     std::string extens = file_name.substr(file_name.find(".")+1);
     return (extens == "jpg" || extens == "png" || extens == "jpeg");
 }
+
+template <typename T>
+bool argumentInRange(T arg_val, const std::array<T, 2>& limits){
+    return arg_val >= limits[0] && arg_val <= limits[1];
+}
+
+//Explicit template instantization
+template bool argumentInRange<double>(double arg_val, const std::array<double, 2>& limits);
+template bool argumentInRange<int>(int arg_val, const std::array<int,2>& limits);
+template bool argumentInRange<short>(short arg_val, const std::array<short,2>& limits);

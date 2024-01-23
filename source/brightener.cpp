@@ -26,7 +26,7 @@ bool Brightener::process_args(std::vector<std::string> args){
         {
             if(is_convertible_to_float(args[i+1]))
             {
-                if(argumentInRange(std::stof(args[i+1]), Brightener::getAlphaLimits()))
+                if(argumentInRange(std::stod(args[i+1]), Brightener::getAlphaLimits()))
                 {
                     Brightener::setAlpha(stof(args[i+1]));
                 }
@@ -46,7 +46,7 @@ bool Brightener::process_args(std::vector<std::string> args){
         {
             if(is_convertible_to_float(args[i+1]))
             {
-                if(argumentInRange(std::stof(args[i+1]), Brightener::getBetaLimits()))
+                if(argumentInRange(std::stoi(args[i+1]), Brightener::getBetaLimits()))
                 {
                     Brightener::setBeta(stoi(args[i+1]));
                 } 
@@ -86,11 +86,6 @@ std::array<double, 2> Brightener::getAlphaLimits(){
 
 std::array<int, 2> Brightener::getBetaLimits(){
     return this->beta_limits;
-}
-
-template <typename T>
-bool Brightener::argumentInRange(double arg_val, const std::array<T, 2> limits){
-    return arg_val >= limits[0] && arg_val <= limits[1];
 }
 
 cv::Mat Brightener::brighten_image(cv::Mat* src_img){

@@ -17,8 +17,6 @@ class Eroder: public Transform
         std::array<short, 2> getElementLimits();
         std::array<short, 2> getKernelLimits();
 
-        bool argumentInRange(short arg_val, const std::array<short, 2>& limits);
-    
     private:
         short element = 1;
         short kernel_size = 3;

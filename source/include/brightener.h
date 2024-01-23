@@ -16,9 +16,6 @@ class Brightener: public Transform{
         std::array<double, 2> getAlphaLimits();
         std::array<int, 2> getBetaLimits();
 
-        template <typename T>
-        bool argumentInRange(double arg_val, const std::array<T, 2> limits);
-
     private:
         double alpha = 1.0;
         int beta = 0;

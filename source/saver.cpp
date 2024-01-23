@@ -17,12 +17,6 @@ void Saver::process_image(std::vector<std::string> args)
            getline(std::cin, ans);
            if(ans == "N") return;
         }
-
-        
-    }
-    else
-    {
-
     }
 }
 

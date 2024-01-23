@@ -10,6 +10,7 @@ enum class Transformation{
     ShowImg,
     Reloader,
     Loader,
+    Saver,
     Wrong_choice
 };
 

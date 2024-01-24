@@ -3,6 +3,7 @@
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
 #include "include/process.h"
+#include "include/arg_parser.h"
 #include <string>
 
 void Brightener::process_image(std::vector<std::string> args){
@@ -21,46 +22,20 @@ void Brightener::process_image(std::vector<std::string> args){
 }
 
 bool Brightener::process_args(std::vector<std::string> args){
+    bool result;
     for(int i = 0; i < args.size(); i+=2){
         if(args[i] == "-a" || args[i] == "--alpha")
         {
-            if(is_convertible_to_float(args[i+1]))
-            {
-                if(argumentInRange(std::stod(args[i+1]), Brightener::getAlphaLimits()))
-                {
-                    Brightener::setAlpha(stof(args[i+1]));
-                }
-                else
-                {
-                    std::cout << "Argument for alpha should be within " << Brightener::getAlphaLimits()[0] << " and " << Brightener::getAlphaLimits()[1] <<"." << std::endl;
-                    return false;
-                }
-            } else 
-            {
-                std::cout << "Wrong argument type for Alpha!" << std::endl;
-                return false;
-            }
+            result = process_arg<double>(std::array<std::string_view, 2> {args[i], args[i+1]},
+            Brightener::getAlphaLimits(), Type::type_float, "alpha");
+            if(result) Brightener::setAlpha(stof(args[i+1]));
         }
 
         if(args[i] == "-b" || args[i] == "--beta")
         {
-            if(is_convertible_to_float(args[i+1]))
-            {
-                if(argumentInRange(std::stoi(args[i+1]), Brightener::getBetaLimits()))
-                {
-                    Brightener::setBeta(stoi(args[i+1]));
-                } 
-                else 
-                {
-                    std::cout << "Argument for alpha should be within " << Brightener::getAlphaLimits()[0] << " and " << Brightener::getAlphaLimits()[1] <<"." << std::endl;
-                    return false;
-                }
-            } 
-            else 
-            {
-                std::cout << "Wrong argument type for Beta!" << std::endl;
-                return false;
-            }
+            result = process_arg<int>(std::array<std::string_view, 2> {args[i], args[i+1]},
+            Brightener::getBetaLimits(), Type::type_int, "beta");
+            if(result) Brightener::setBeta(stoi(args[i+1]));
         }
     }
     return true;

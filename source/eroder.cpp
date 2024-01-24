@@ -1,4 +1,5 @@
 #include "include/eroder.h"
+#include "include/process.h"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
@@ -7,7 +8,30 @@ void Eroder::process_image(std::vector<std::string> args){
 }
 
 bool Eroder::process_args(std::vector<std::string> args){
-    return false;
+    for(int i = 0; i < args.size(); i+=2)
+    {
+        if(args[i] == "-el" || args[i] == "--element")
+        {
+            if(is_number(args[i+1]))
+            {
+                if(argumentInRange<short>(std::stoi(args[i+1]), Eroder::getElementLimits()))
+                {
+                    Eroder::setElement(stoi(args[i+1]));
+                }
+                else
+                {
+                    std::cout << "ERROR: Argument for element should be within " << Eroder::getElementLimits()[0] << " and " << Eroder::getElementLimits()[1] << ".\n";
+                    return false;
+                 }
+            }
+            else
+            {
+                std::cout << "ERROR: Wrong argument type for element. Element shall be an integer type.\n"; 
+            }
+        }
+
+        
+    }
 }
 
 cv::Mat Eroder::erode_image(cv::Mat* src_img)
@@ -26,7 +50,8 @@ cv::Mat Eroder::erode_image(cv::Mat* src_img)
             erosion_type = cv::MORPH_ELLIPSE;
             break;
         default:
-            return;
+            erosion_type = cv::MORPH_RECT;
+            break;
     }
     short kernel_size = Eroder::getKernelSize();
     cv::Mat element = cv::getStructuringElement(erosion_type,

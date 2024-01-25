@@ -12,4 +12,6 @@ bool is_number(const std::string& s);
 bool is_convertible_to_float(const std::string& s);
 bool has_valid_extens(const std::string& file_name);
 template <typename T>
-bool argumentInRange(T arg_val, const std::array<T, 2>& limits);
+bool argumentInRange(T arg_val, const std::array<T, 2>& limits){
+    return arg_val >= limits[0] && arg_val <= limits[1];
+}

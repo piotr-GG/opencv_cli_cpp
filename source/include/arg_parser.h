@@ -5,8 +5,8 @@ enum class Type
 {
     type_short,
     type_int,
-    type_float,
+    type_double,
 };
 
 template <typename T>
-bool process_arg(const std::array<std::string_view,2>& args, const std::array<T, 2>& limits, Type arg_type, const std::string& arg_name);
+bool process_arg(const std::array<std::string,2>& args, const std::array<T, 2>& limits, const std::string& arg_name);

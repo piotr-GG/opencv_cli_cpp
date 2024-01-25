@@ -7,15 +7,15 @@
 #include <string>
 
 void Brightener::process_image(std::vector<std::string> args){
-    std::cout << "Processing image in Brightener" << std::endl;
-
     std::vector<std::string> arg_vector = std::vector<std::string>(args.begin()+1, args.begin() + args.size());
 
     bool process_result = Brightener::process_args(arg_vector);
     if(process_result){
+        std::cout << "Processing image!" << std::endl;
         cv::Mat image = ImgContainer::get_image();
         cv::Mat new_image = brighten_image(&image);
         ImgContainer::set_image(new_image);
+        std::cout << "Processing done!" << std::endl;
     } else {
         std::cout << "Couldn't process image due to wrong input arguments" << std::endl;
     }
@@ -23,21 +23,22 @@ void Brightener::process_image(std::vector<std::string> args){
 
 bool Brightener::process_args(std::vector<std::string> args){
     bool result;
+    
     for(int i = 0; i < args.size(); i+=2){
+        std::array<std::string, 2>  arg_vec = std::array<std::string, 2> {args[i], args[i+1]};
         if(args[i] == "-a" || args[i] == "--alpha")
         {
-            result = process_arg<double>(std::array<std::string_view, 2> {args[i], args[i+1]},
-            Brightener::getAlphaLimits(), Type::type_float, "alpha");
+            result = process_arg<double>(arg_vec, Brightener::getAlphaLimits(), "alpha");
             if(result) Brightener::setAlpha(stof(args[i+1]));
         }
 
         if(args[i] == "-b" || args[i] == "--beta")
         {
-            result = process_arg<int>(std::array<std::string_view, 2> {args[i], args[i+1]},
-            Brightener::getBetaLimits(), Type::type_int, "beta");
+            result = process_arg<int>(arg_vec, Brightener::getBetaLimits(), "beta");
             if(result) Brightener::setBeta(stoi(args[i+1]));
         }
     }
+    
     return true;
 }
 

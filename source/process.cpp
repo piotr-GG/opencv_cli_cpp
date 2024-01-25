@@ -80,5 +80,6 @@ bool argumentInRange(T arg_val, const std::array<T, 2>& limits){
 
 //Explicit template instantization
 template bool argumentInRange<double>(double arg_val, const std::array<double, 2>& limits);
+template bool argumentInRange<float>(float arg_val, const std::array<float, 2>& limits);
 template bool argumentInRange<int>(int arg_val, const std::array<int,2>& limits);
 template bool argumentInRange<short>(short arg_val, const std::array<short,2>& limits);

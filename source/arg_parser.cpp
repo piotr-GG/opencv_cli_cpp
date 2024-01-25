@@ -1,10 +1,27 @@
 #include "include/arg_parser.h"
 #include "include/process.h"
-#include <iostream>
+#include <array>
 
 template <typename T>
-bool process_arg(const std::array<std::string_view,2>& args, const std::array<T, 2>& limits, Type arg_type, const std::string& arg_name)
+bool process_arg(const std::array<std::string,2>& args, const std::array<T, 2>& limits, const std::string& arg_name)
 {
+    Type arg_type;
+
+    //Conditionals used for determining type of passed arguments (based on template specialization)
+    std::string_view type_name = typeid(T).name();
+    if(type_name == typeid(int).name())
+    {
+        arg_type = Type::type_int;
+    }
+    if(type_name == typeid(short).name())
+    {
+        arg_type = Type::type_short;
+    }
+        if(type_name == typeid(double).name())
+    {
+        arg_type = Type::type_double;
+    }
+
     if(args.size() != 2) 
     {
         std::cout << "ERROR: Incorrect number of arguments passed.\n";
@@ -18,22 +35,22 @@ bool process_arg(const std::array<std::string_view,2>& args, const std::array<T,
     bool is_within_limits;
     switch(arg_type)
     {
-        case Type::type_float:
+        case Type::type_double:
             is_convertible = is_convertible_to_float(arg_val);
             if(is_convertible) {
-                is_within_limits = argumentInRange<float>(std::stof(arg_val), limits);
+                is_within_limits = argumentInRange<T>(std::stof(arg_val), limits);
             }
             break;
         case Type::type_int:
             is_convertible = is_number(arg_val);
             if(is_convertible) {
-                is_within_limits = argumentInRange<int>(std::stoi(arg_val), limits);
+                is_within_limits = argumentInRange<T>(std::stoi(arg_val), limits);
             }
             break;
         case Type::type_short:
             is_convertible = is_number(arg_val);
             if(is_convertible) {
-                is_within_limits = argumentInRange<short>(std::stoi(arg_val), limits);
+                is_within_limits = argumentInRange<T>(std::stoi(arg_val), limits);
             }
         default:
             std::cerr << "ERROR: WRONG ARGUMENT PASSED FOR arg_type in ArgParser::process_arg!\n";
@@ -56,7 +73,6 @@ bool process_arg(const std::array<std::string_view,2>& args, const std::array<T,
 
 }
 
-template bool process_arg<double>(const std::array<std::string_view,2>& args, const std::array<double, 2>& limits, Type arg_type, const std::string& arg_name);
-template bool process_arg<int>(const std::array<std::string_view,2>& args, const std::array<int, 2>& limits, Type arg_type, const std::string& arg_name);
-template bool process_arg<short>(const std::array<std::string_view,2>& args, const std::array<short, 2>& limits, Type arg_type, const std::string& arg_name);
-template bool process_arg<float>(const std::array<std::string_view,2>& args, const std::array<float, 2>& limits, Type arg_type, const std::string& arg_name);
+template bool process_arg<double>(const std::array<std::string,2>& args, const std::array<double, 2>& limits, const std::string& arg_name);
+template bool process_arg<int>(const std::array<std::string,2>& args, const std::array<int, 2>& limits, const std::string& arg_name);
+template bool process_arg<short>(const std::array<std::string,2>& args, const std::array<short, 2>& limits, const std::string& arg_name);

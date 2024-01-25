@@ -72,3 +72,13 @@ bool has_valid_extens(const std::string& file_name)
     std::string extens = file_name.substr(file_name.find(".")+1);
     return (extens == "jpg" || extens == "png" || extens == "jpeg");
 }
+
+bool is_in_array(const std::string_view& arg, const std::string possible_vals[])
+{
+    if (!possible_vals) return false;
+    for(int i = 0; i < sizeof(possible_vals)/sizeof(possible_vals[0]); i++)
+    {   
+        if(arg == possible_vals[i]) return true;
+    }
+    return false;
+}

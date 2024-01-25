@@ -31,25 +31,24 @@ bool Dilater::process_args(std::vector<std::string> args){
         return false;
     }
 
-        for(int i = 0; i < args.size(); i+=2)
-        {
-            std::array<std::string, 2>  arg_vec = std::array<std::string, 2> {args[i], args[i+1]};
-            if(arg_vec[0] == "-el" || arg_vec[0] == "--element")
-            {
-                
-                result = process_arg<short>(arg_vec, Dilater::getElementLimits(), "element");
-                if(result) Dilater::setElement(stof(arg_vec[1]));
-                else return false;
-            }
-
-            if(arg_vec[0] == "-k" || arg_vec[0] == "--kernel")
-            {
-                
-                result = process_arg<short>(arg_vec, Dilater::getKernelLimits(), "kernel");
-                if(result) Dilater::setKernelSize(stof(arg_vec[1]));
-                else return false;
-            }
+    for(int i = 0; i < args.size(); i+=2)
+    {
+        std::array<std::string, 2>  arg_vec = std::array<std::string, 2> {args[i], args[i+1]};
+        if(arg_vec[0] == "-el" || arg_vec[0] == "--element")
+        {    
+            result = process_arg<short>(arg_vec, Dilater::getElementLimits(), "element");
+            if(result) Dilater::setElement(stoi(arg_vec[1]));
+            else return false;
         }
+
+        if(arg_vec[0] == "-k" || arg_vec[0] == "--kernel")
+        {
+            
+            result = process_arg<short>(arg_vec, Dilater::getKernelLimits(), "kernel");
+            if(result) Dilater::setKernelSize(stoi(arg_vec[1]));
+            else return false;
+        }
+    }
     return true;
 }
 

@@ -1,6 +1,7 @@
 #include "include/eroder.h"
 #include "include/process.h"
 #include "include/arg_parser.h"
+#include "include/img_container.h"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
@@ -11,7 +12,9 @@ void Eroder::process_image(std::vector<std::string> args){
     if(process_result)
     {
         std::cout << "Processing image!" << std::endl;
-
+        cv::Mat image = ImgContainer::get_image();
+        cv::Mat new_image = erode_image(&image);
+        ImgContainer::set_image(new_image);
         std::cout << "Processing done!" << std::endl;
     }
     else

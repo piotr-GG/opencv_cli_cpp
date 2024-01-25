@@ -1,37 +1,54 @@
 #include "include/eroder.h"
 #include "include/process.h"
+#include "include/arg_parser.h"
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
 void Eroder::process_image(std::vector<std::string> args){
-    std::cout << "Processing image in Eroder" << std::endl;
+    std::vector<std::string> arg_vector = std::vector<std::string>(args.begin()+1, args.begin() + args.size());
+
+    bool process_result = Eroder::process_args(arg_vector);
+    if(process_result)
+    {
+        std::cout << "Processing image!" << std::endl;
+
+        std::cout << "Processing done!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Couldn't process image due to wrong input arguments" << std::endl;
+    }
+    
 }
 
 bool Eroder::process_args(std::vector<std::string> args){
-    for(int i = 0; i < args.size(); i+=2)
+    bool result;
+    if(args.size() % 2 != 0)
     {
-        if(args[i] == "-el" || args[i] == "--element")
+        std::cout << "ERROR: Wrong number of input arguments!" << std::endl;
+        return false;
+    }
+
+        for(int i = 0; i < args.size(); i+=2)
         {
-            if(is_number(args[i+1]))
+            std::array<std::string, 2>  arg_vec = std::array<std::string, 2> {args[i], args[i+1]};
+            if(arg_vec[0] == "-el" || arg_vec[0] == "--element")
             {
-                if(argumentInRange<short>(std::stoi(args[i+1]), Eroder::getElementLimits()))
-                {
-                    Eroder::setElement(stoi(args[i+1]));
-                }
-                else
-                {
-                    std::cout << "ERROR: Argument for element should be within " << Eroder::getElementLimits()[0] << " and " << Eroder::getElementLimits()[1] << ".\n";
-                    return false;
-                 }
+                
+                result = process_arg<short>(arg_vec, Eroder::getElementLimits(), "element");
+                if(result) Eroder::setElement(stof(arg_vec[1]));
+                else return false;
             }
-            else
+
+            if(arg_vec[0] == "-k" || arg_vec[0] == "--kernel")
             {
-                std::cout << "ERROR: Wrong argument type for element. Element shall be an integer type.\n"; 
+                
+                result = process_arg<short>(arg_vec, Eroder::getKernelLimits(), "kernel");
+                if(result) Eroder::setKernelSize(stof(arg_vec[1]));
+                else return false;
             }
         }
-
-        
-    }
+    return true;
 }
 
 cv::Mat Eroder::erode_image(cv::Mat* src_img)

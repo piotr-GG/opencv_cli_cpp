@@ -29,19 +29,20 @@ bool Brightener::process_args(std::vector<std::string> args){
         return false;
     }
 
-    for(int i = 0; i < args.size(); i+=2){
+    for(int i = 0; i < args.size(); i+=2)
+    {
         std::array<std::string, 2>  arg_vec = std::array<std::string, 2> {args[i], args[i+1]};
-        if(args[i] == "-a" || args[i] == "--alpha")
+        if(arg_vec[0] == "-a" || arg_vec[0] == "--alpha")
         {
             result = process_arg<double>(arg_vec, Brightener::getAlphaLimits(), "alpha");
-            if(result) Brightener::setAlpha(stof(args[i+1]));
+            if(result) Brightener::setAlpha(stof(arg_vec[1]));
             else return false;
         }
 
         if(args[i] == "-b" || args[i] == "--beta")
         {
             result = process_arg<int>(arg_vec, Brightener::getBetaLimits(), "beta");
-            if(result) Brightener::setBeta(stoi(args[i+1]));
+            if(result) Brightener::setBeta(stoi(arg_vec[1]));
             else return false;
         }
     }

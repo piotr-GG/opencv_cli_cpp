@@ -5,10 +5,11 @@
 template <typename T>
 bool process_arg(const std::array<std::string,2>& args, const std::array<T, 2>& limits, const std::string& arg_name)
 {
-    Type arg_type;
-
+    Type arg_type = Type::type_undefined;
+    
     //Conditionals used for determining type of passed arguments (based on template specialization)
     std::string_view type_name = typeid(T).name();
+
     if(type_name == typeid(int).name())
     {
         arg_type = Type::type_int;
@@ -17,11 +18,13 @@ bool process_arg(const std::array<std::string,2>& args, const std::array<T, 2>& 
     {
         arg_type = Type::type_short;
     }
-        if(type_name == typeid(double).name())
+    if(type_name == typeid(double).name())
     {
         arg_type = Type::type_double;
     }
-
+    std::cout << "Type name " << type_name << '\n';
+    std::cout << "Type name " << typeid(short).name() << '\n';
+    std::cout << "Type name " << static_cast<int>(arg_type) << '\n';
     if(args.size() != 2) 
     {
         std::cout << "ERROR: Incorrect number of arguments passed.\n";
@@ -52,6 +55,7 @@ bool process_arg(const std::array<std::string,2>& args, const std::array<T, 2>& 
             if(is_convertible) {
                 is_within_limits = argumentInRange<T>(std::stoi(arg_val), limits);
             }
+            break;
         default:
             std::cerr << "ERROR: WRONG ARGUMENT PASSED FOR arg_type in ArgParser::process_arg!\n";
             return false;

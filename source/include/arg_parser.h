@@ -3,9 +3,10 @@
 
 enum class Type
 {
-    type_short,
+    type_short = 1,
     type_int,
     type_double,
+    type_undefined = 99,
 };
 
 template <typename T>

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <vector>
 #include <cctype>
+#include <iterator>
 #include "include/process.h"
 #include "include/transform.h"
 
@@ -73,12 +74,16 @@ bool has_valid_extens(const std::string& file_name)
     return (extens == "jpg" || extens == "png" || extens == "jpeg");
 }
 
-bool is_in_array(const std::string_view& arg, const std::string possible_vals[])
+/*
+bool is_in_array(const std::string_view& arg, std::string possible_vals[])
 {
+
     if (!possible_vals) return false;
-    for(int i = 0; i < sizeof(possible_vals)/sizeof(possible_vals[0]); i++)
+    for(auto i: possible_vals)
     {   
+        std::cout << possible_vals[i] << "\n";
         if(arg == possible_vals[i]) return true;
     }
     return false;
 }
+*/

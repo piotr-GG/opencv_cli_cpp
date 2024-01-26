@@ -32,15 +32,30 @@ bool Smoother::process_args(std::vector<std::string> args){
         std::cout << "ERROR: Wrong number of input arguments!" << std::endl;
         return false;
     }
+
     for(int i = 0; i < args.size(); i+=2)
     {
         std::array<std::string, 2> arg_vec = std::array<std::string, 2>{args[i], args[i+1]};
-        std::string possible_mnemonics[] = {"-el",  "--element"};
-        if(is_in_array(arg_vec[0], possible_mnemonics))
+        //std::string possible_mnemonics[] = {"-k",  "--kernel"};
+
+        if(arg_vec[0] == "-k" || arg_vec[0] == "--kernel")
         {
             result = process_arg<short>(arg_vec, Smoother::getKernelLimits(), "kernel");
-            if(result) Smoother::setKernelSize(stoi(arg_vec[1]));
+            if(result) 
+            {
+                if(stoi(arg_vec[1]) % 2 == 1)
+                {
+                    Smoother::setKernelSize(stoi(arg_vec[1]));
+                }
+                else 
+                {
+                    std::cout << "ERROR: Kernel size shall be an odd number\n";
+                    return false;
+                }
+            }
             else return false;
+        } else {
+            std::cout << arg_vec[0] <<" not in mnemonics list\n";
         }
     }
     return true;
@@ -48,9 +63,11 @@ bool Smoother::process_args(std::vector<std::string> args){
 
 cv::Mat Smoother::smooth_image(cv::Mat* src_img)
 {
-    cv::Mat output_img = src_img->clone();
-    short kernel_size = this->getKernelSize();
+    cv::Mat output_img;
+    short kernel_size = Smoother::getKernelSize();
+    std::cout << "Set kernel size: " << kernel_size << "\n";
     cv::GaussianBlur(*src_img, output_img, cv::Size(kernel_size, kernel_size), 0, 0);
+    return output_img;
 }
 
 void Smoother::setKernelSize(short val)

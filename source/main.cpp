@@ -20,7 +20,18 @@ int main(int argc, char **argv)
 
     ImgContainer::load_image(image_path);
     ImgContainer::set_image_path(image_path);
-    
+    if(ImgContainer::get_image().empty()) 
+    {
+        while(ImgContainer::get_image().empty())
+        {   
+            std::cout << "ERROR: No image has been loaded.\n";
+            std::cout << "Please insert image name to be loaded (type exit to exit program): ";
+            image_path = get_line();
+            if(image_path == "exit") return 0; 
+            ImgContainer::load_image(image_path);
+            ImgContainer::set_image_path(image_path);
+        }
+    }
     for(std::string line; std::cout << "APP > " && std::getline(std::cin, line); )
     {
         if(!line.empty())

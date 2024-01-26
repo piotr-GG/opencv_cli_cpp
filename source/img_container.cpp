@@ -7,9 +7,10 @@ std::string ImgContainer::image_path = "";
 
 void ImgContainer::load_image(cv::String name){
     cv::Mat image;
-    image = cv::imread(name, cv::IMREAD_COLOR);
+    if(!name.empty())
+        image = cv::imread(name, cv::IMREAD_COLOR);
 
-    if (!image.data)
+    if (image.empty())
     {
         return;
     } 
@@ -37,4 +38,3 @@ void ImgContainer::show_image(){
     cv::imshow("Display Image", ImgContainer::image);
     cv::waitKey(0);
 }
-
